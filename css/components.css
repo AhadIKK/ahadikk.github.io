@@ -1951,17 +1951,11 @@ html:not(.is-first-visit) .preloader__bar {
   visibility: visible;
 }
 
+/* The curtain is intentionally logo-free: the destination page's preloader
+   shows the single logo during an internal switch. This prevents the logo
+   from appearing twice (once in the curtain, once on the new page). */
 .page-transition__mark {
-  width: 42px;
-  height: 42px;
-  opacity: 0;
-  transform: scale(0.85);
-  transition: opacity 0.2s ease, transform 0.3s var(--ease-out);
-}
-
-.page-transition.is-leaving .page-transition__mark {
-  opacity: 1;
-  transform: scale(1);
+  display: none;
 }
 
 /* ---- Empty states / misc ------------------------------------------------- */

@@ -259,7 +259,7 @@
   function hidePreloader() {
     if (!preloader) return;
     var firstVisit = root.classList.contains("is-first-visit");
-    var minimum = firstVisit ? 360 : 120;
+    var minimum = firstVisit ? 360 : 180;
     var wait = Math.max(0, minimum - (performance.now() - preloaderStart));
     window.setTimeout(function () {
       preloader.classList.add("is-loaded");
