@@ -77,6 +77,63 @@
     if (contactCta) contactCta.setAttribute("aria-current", "page");
   }
 
+  /* Hover-latching pill for the primary navigation. One shared background
+     slides to whichever label is hovered/focused, then returns to the page
+     that is actually open. */
+  var navList = document.getElementById("primary-nav-list");
+  if (navList) {
+    var navLinks = Array.prototype.slice.call(navList.querySelectorAll("a"));
+    var navActive = navList.querySelector('a[aria-current="page"]');
+    var navHovered = null;
+
+    function moveNavIndicator(link) {
+      if (!link || !navList.offsetWidth) {
+        navList.classList.remove("has-indicator");
+        return;
+      }
+      navList.style.setProperty("--nav-indicator-x", link.offsetLeft + "px");
+      navList.style.setProperty("--nav-indicator-w", link.offsetWidth + "px");
+      navList.classList.add("has-indicator");
+    }
+
+    function restNavIndicator() {
+      navHovered = null;
+      var focused = document.activeElement && document.activeElement.closest
+        ? document.activeElement.closest(".nav-list a")
+        : null;
+      moveNavIndicator(focused || navActive);
+    }
+
+    navLinks.forEach(function (link) {
+      link.addEventListener("mouseenter", function () {
+        navHovered = link;
+        moveNavIndicator(link);
+      });
+      link.addEventListener("focus", function () {
+        moveNavIndicator(link);
+      });
+    });
+
+    navList.addEventListener("mouseleave", restNavIndicator);
+    navList.addEventListener("focusout", function () {
+      window.setTimeout(function () {
+        if (!navList.contains(document.activeElement)) restNavIndicator();
+      }, 0);
+    });
+
+    window.addEventListener("resize", function () {
+      moveNavIndicator(navHovered || navActive);
+    });
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        moveNavIndicator(navHovered || navActive);
+      });
+    }
+
+    moveNavIndicator(navActive);
+  }
+
   /* ---------------------------------------------------------------------
      3. Mobile navigation — accessible panel with focus + scroll handling
      --------------------------------------------------------------------- */
@@ -201,7 +258,9 @@
 
   function hidePreloader() {
     if (!preloader) return;
-    var wait = Math.max(0, 360 - (performance.now() - preloaderStart));
+    var firstVisit = root.classList.contains("is-first-visit");
+    var minimum = firstVisit ? 360 : 120;
+    var wait = Math.max(0, minimum - (performance.now() - preloaderStart));
     window.setTimeout(function () {
       preloader.classList.add("is-loaded");
       window.setTimeout(function () {

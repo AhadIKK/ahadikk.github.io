@@ -42,6 +42,16 @@
   <script>
     (function () {
       document.documentElement.classList.add("js");
+
+      /* Full “name + logo” preloader only on the first entry in this tab.
+         Later page switches show the logo-only version. */
+      try {
+        if (!sessionStorage.getItem("aai-entered")) {
+          document.documentElement.classList.add("is-first-visit");
+          sessionStorage.setItem("aai-entered", "1");
+        }
+      } catch (error) { /* file:// or private mode */ }
+
       try {
         var stored = localStorage.getItem("aai-theme");
         var theme = stored || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
