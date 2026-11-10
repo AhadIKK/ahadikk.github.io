@@ -1,0 +1,134 @@
+/* ==========================================================================
+   tokens.css — fonts, colour themes, spacing, type scale, motion tokens
+   Abdul Ahad Ikkeri — portfolio
+   ========================================================================== */
+
+/* Self-hosted fonts: no third-party requests, works offline. */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: swap;
+  src: url("../assets/fonts/bricolage-grotesque.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("../assets/fonts/manrope.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("../assets/fonts/jetbrains-mono.woff2") format("woff2");
+}
+
+/* ---- Shared ------------------------------------------------------------- */
+:root {
+  --font-display: "Bricolage Grotesque", "Arial Black", sans-serif;
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Consolas", monospace;
+
+  --container: 1240px;
+  --gutter: clamp(20px, 4vw, 48px);
+  --header-h: 76px;
+  --section-y: clamp(76px, 9vw, 136px);
+
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-xl: 36px;
+  --radius-pill: 999px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --step--2: clamp(0.68rem, 0.66rem + 0.1vw, 0.74rem);
+  --step--1: clamp(0.8rem, 0.77rem + 0.15vw, 0.9rem);
+  --step-0: clamp(0.98rem, 0.94rem + 0.2vw, 1.075rem);
+  --step-1: clamp(1.12rem, 1.04rem + 0.4vw, 1.3rem);
+  --step-2: clamp(1.35rem, 1.2rem + 0.75vw, 1.7rem);
+  --step-3: clamp(1.8rem, 1.5rem + 1.5vw, 2.5rem);
+  --step-4: clamp(2.4rem, 1.8rem + 3vw, 4rem);
+  --step-5: clamp(3rem, 1.9rem + 5.5vw, 6.4rem);
+}
+
+/* ---- Dark theme (default) ------------------------------------------------ */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b0e10;
+  --bg-2: #0e1215;
+  --surface: #11171a;
+  --surface-2: #151d21;
+  --surface-3: #1a2428;
+  --text: #f2f0e8;
+  --text-strong: #ffffff;
+  --muted: #a4b0b1;
+  --faint: #7b8b8d;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.17);
+  --accent: #30e3b4;
+  --accent-strong: #7cf7d4;
+  --accent-ink: #04251d;
+  --accent-soft: rgba(48, 227, 180, 0.12);
+  --accent-line: rgba(48, 227, 180, 0.34);
+  --ember: #ff8c61;
+  --ember-soft: rgba(255, 140, 97, 0.13);
+  --ember-line: rgba(255, 140, 97, 0.32);
+  --glass: rgba(11, 14, 16, 0.68);
+  --glass-strong: rgba(11, 14, 16, 0.88);
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.34);
+  --shadow-lift: 0 28px 90px rgba(0, 0, 0, 0.5);
+  --glow: 0 0 70px rgba(48, 227, 180, 0.16);
+  --paper: #f5f1e7;
+  --paper-2: #ebe5d8;
+  --paper-ink: #171b1b;
+  --paper-muted: #596162;
+  --paper-line: rgba(23, 27, 27, 0.16);
+  --noise-opacity: 0.055;
+  --theme-color: #0b0e10;
+}
+
+/* ---- Light theme --------------------------------------------------------- */
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f4f1e8;
+  --bg-2: #ede8dc;
+  --surface: #fbf8f1;
+  --surface-2: #f1ece1;
+  --surface-3: #e8e2d5;
+  --text: #141919;
+  --text-strong: #000000;
+  --muted: #596463;
+  --faint: #5f6a68;
+  --line: rgba(15, 23, 22, 0.13);
+  --line-strong: rgba(15, 23, 22, 0.23);
+  --accent: #07705f;
+  --accent-strong: #0a9279;
+  --accent-ink: #f1fffb;
+  --accent-soft: rgba(7, 112, 95, 0.09);
+  --accent-line: rgba(7, 112, 95, 0.3);
+  --ember: #b94a24;
+  --ember-soft: rgba(185, 74, 36, 0.09);
+  --ember-line: rgba(185, 74, 36, 0.28);
+  --glass: rgba(244, 241, 232, 0.78);
+  --glass-strong: rgba(244, 241, 232, 0.94);
+  --shadow-card: 0 20px 55px rgba(53, 56, 47, 0.12);
+  --shadow-lift: 0 28px 80px rgba(53, 56, 47, 0.17);
+  --glow: 0 0 70px rgba(8, 122, 103, 0.13);
+  --paper: #fffdf8;
+  --paper-2: #f4efe4;
+  --paper-ink: #171b1b;
+  --paper-muted: #596162;
+  --paper-line: rgba(23, 27, 27, 0.16);
+  --noise-opacity: 0.035;
+  --theme-color: #f4f1e8;
+}

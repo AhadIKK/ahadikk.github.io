@@ -1,0 +1,419 @@
+/* ==========================================================================
+   base.css — reset, page defaults, typography, utilities, accessibility
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 28px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100svh;
+  margin: 0;
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.35s var(--ease-out), color 0.35s var(--ease-out);
+}
+
+/* Fine grain — one tiny tiled PNG, kept above the content but non-interactive. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  background-image: url("../assets/img/noise.png");
+  opacity: var(--noise-opacity);
+  mix-blend-mode: overlay;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* ---- Typography ---------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  color: var(--text-strong);
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--step-5);
+}
+
+h2 {
+  font-size: var(--step-4);
+}
+
+h3 {
+  font-size: var(--step-2);
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+h4 {
+  font-size: var(--step-1);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+address {
+  font-style: normal;
+}
+
+strong,
+b {
+  font-weight: 750;
+  color: var(--text-strong);
+}
+
+small {
+  font-size: var(--step--1);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Inline UI icons default to the local text size; component rules below
+   can override this when a specific size is needed. */
+.icon {
+  width: 1em;
+  height: 1em;
+  flex: none;
+}
+
+img {
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+hr {
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: var(--line);
+}
+
+/* ---- Focus & skip link --------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 10000;
+  padding: 12px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 800;
+  transform: translateY(-160%);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline-color: var(--text-strong);
+}
+
+/* ---- Layout helpers ------------------------------------------------------ */
+.container {
+  width: min(100% - (var(--gutter) * 2), var(--container));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.section--tight {
+  padding-block: clamp(52px, 6vw, 88px);
+}
+
+.section--top {
+  padding-top: clamp(110px, 12vw, 170px);
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(30px, 4vw, 54px);
+}
+
+.section-head__copy {
+  max-width: 720px;
+}
+
+.section-head p {
+  margin-top: 16px;
+  max-width: 60ch;
+  color: var(--muted);
+}
+
+.section-title {
+  margin-top: 10px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 30px;
+  height: 1px;
+  background: currentColor;
+}
+
+.eyebrow--plain::before {
+  display: none;
+}
+
+.lede {
+  max-width: 64ch;
+  color: var(--muted);
+  font-size: var(--step-1);
+  line-height: 1.62;
+  letter-spacing: -0.008em;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.ember {
+  color: var(--ember);
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-strong) 55%, var(--ember) 120%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.rule {
+  height: 1px;
+  background: linear-gradient(90deg, var(--line-strong), transparent);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 2.6vw, 32px);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.stack-sm > * + * {
+  margin-top: 12px;
+}
+
+.stack > * + * {
+  margin-top: 20px;
+}
+
+.stack-lg > * + * {
+  margin-top: 32px;
+}
+
+/* ---- Placeholder styling ------------------------------------------------- */
+/* Any value that still starts life in data/profile.js as [[...]] gets this
+   dashed treatment so it is impossible to miss before publishing. */
+.is-placeholder {
+  color: var(--ember) !important;
+  border-bottom: 1px dashed var(--ember-line);
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  letter-spacing: -0.02em;
+  cursor: help;
+}
+
+.placeholder-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 12px 16px;
+  border: 1px dashed var(--ember-line);
+  border-radius: var(--radius-sm);
+  background: var(--ember-soft);
+  color: var(--muted);
+  font-size: var(--step--1);
+}
+
+.placeholder-note svg {
+  flex: none;
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  color: var(--ember);
+}
+
+.placeholder-note[hidden] {
+  display: none;
+}
+
+/* ---- Accessibility helpers ----------------------------------------------- */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Interactive controls that require JS are hidden when JS is absent. */
+html:not(.js) .js-only {
+  display: none !important;
+}
+
+html:not(.js) .theme-toggle,
+html:not(.js) .nav-toggle,
+html:not(.js) .preloader,
+html:not(.js) .page-transition,
+html:not(.js) .cursor,
+html:not(.js) .scroll-progress,
+html:not(.js) .to-top {
+  display: none !important;
+}
+
+/* With JS disabled, show a plain wrapped navigation instead of a dead menu. */
+html:not(.js) .mobile-panel {
+  display: none !important;
+}
+
+html:not(.js) .nav-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+html:not(.js) .nav-cta {
+  display: none;
+}
+
+.noscript-note {
+  margin: 0;
+  padding: 10px var(--gutter);
+  background: var(--ember-soft);
+  color: var(--text);
+  font-size: var(--step--1);
+  text-align: center;
+}
+
+/* ---- Scroll locks -------------------------------------------------------- */
+body.nav-open,
+body.modal-open {
+  overflow: hidden;
+}
+
+/* ---- Theme transition guard --------------------------------------------- */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease !important;
+}

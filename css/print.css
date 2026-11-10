@@ -1,0 +1,271 @@
+/* ==========================================================================
+   print.css — clean, single-page A4 resume
+   Loaded with media="print"; rules are additionally wrapped for safety.
+   ========================================================================== */
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@media print {
+  :root {
+    --paper: #ffffff;
+    --paper-ink: #111111;
+    --paper-muted: #4a4a4a;
+    --paper-line: #cfcfcf;
+  }
+
+  html,
+  body {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-size: 9pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body::after,
+  .site-header,
+  .site-footer,
+  .preloader,
+  .page-transition,
+  .cursor,
+  .scroll-progress,
+  .to-top,
+  .toast,
+  .nav-scrim,
+  .mobile-panel,
+  .skip-link,
+  .page-hero,
+  .resume-toolbar,
+  .resume-note,
+  .resume-hero,
+  .placeholder-note {
+    display: none !important;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .section,
+  .section--tight,
+  .section--top {
+    padding: 0 !important;
+  }
+
+  .container {
+    width: 210mm !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .resume-stage {
+    width: 210mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: #ffffff !important;
+  }
+
+  .resume-paper {
+    width: 210mm !important;
+    min-height: 296mm !important;
+    margin: 0 !important;
+    padding: 11mm 13mm 9mm !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    box-shadow: none !important;
+    font-size: 8.7pt;
+    line-height: 1.34;
+    break-inside: avoid;
+  }
+
+  .resume-paper * {
+    color: inherit;
+  }
+
+  .resume-header {
+    padding-bottom: 3.2mm;
+    border-bottom: 1.5pt solid #111111;
+  }
+
+  .resume-name {
+    color: #111111 !important;
+    font-size: 25pt;
+    line-height: 0.95;
+  }
+
+  .resume-role {
+    margin-top: 1.5mm;
+    color: #444444 !important;
+    font-size: 7.6pt;
+  }
+
+  .resume-contact {
+    gap: 0.6mm;
+    color: #444444 !important;
+    font-size: 7.8pt;
+    line-height: 1.35;
+  }
+
+  .resume-contact a {
+    color: #111111 !important;
+  }
+
+  .resume-contact .is-placeholder {
+    color: #111111 !important;
+    border: 0;
+    font-family: var(--font-mono);
+    font-size: 7.4pt;
+  }
+
+  .resume-section {
+    margin-top: 3.4mm;
+  }
+
+  .resume-section__title {
+    margin-bottom: 1.4mm;
+    padding-bottom: 0.7mm;
+    border-bottom: 0.6pt solid #bdbdbd;
+    color: #111111 !important;
+    font-size: 7.4pt;
+    letter-spacing: 0.12em;
+  }
+
+  .resume-section__title::before {
+    width: 1.6mm;
+    height: 1.6mm;
+    background: #0b7a67;
+  }
+
+  .resume-summary {
+    color: #222222 !important;
+    font-size: 8.5pt;
+    line-height: 1.42;
+  }
+
+  .resume-entry {
+    gap: 4mm;
+    padding: 1.5mm 0;
+    border-bottom: 0.4pt dotted #cccccc;
+  }
+
+  .resume-entry h3,
+  .resume-entry h4 {
+    color: #111111 !important;
+    font-size: 8.6pt;
+    line-height: 1.3;
+  }
+
+  .resume-entry__sub {
+    color: #4b4b4b !important;
+    font-size: 7.8pt;
+  }
+
+  .resume-entry__meta {
+    color: #4b4b4b !important;
+    font-size: 7.2pt;
+  }
+
+  .resume-entry__meta strong {
+    color: #111111 !important;
+  }
+
+  .resume-list {
+    gap: 0.5mm;
+    margin-top: 0.5mm;
+  }
+
+  .resume-list li {
+    color: #222222 !important;
+    font-size: 8.1pt;
+    line-height: 1.38;
+  }
+
+  .resume-list li::before {
+    width: 1mm;
+    height: 1mm;
+    background: #0b7a67;
+  }
+
+  .resume-skills {
+    gap: 0.4mm;
+  }
+
+  .resume-skill-row {
+    grid-template-columns: 31mm minmax(0, 1fr);
+    gap: 3mm;
+    padding: 0.2mm 0;
+    font-size: 8.1pt;
+    line-height: 1.35;
+  }
+
+  .resume-skill-row dt {
+    color: #111111 !important;
+  }
+
+  .resume-skill-row dd {
+    color: #222222 !important;
+  }
+
+  .resume-projects {
+    gap: 2mm;
+  }
+
+  .resume-project {
+    padding-bottom: 1.6mm;
+    border-bottom: 0.4pt dotted #cccccc;
+  }
+
+  .resume-project h3,
+  .resume-project h4 {
+    color: #111111 !important;
+    font-size: 8.6pt;
+  }
+
+  .resume-project__role {
+    color: #4b4b4b !important;
+    font-size: 6.8pt;
+  }
+
+  .resume-project p {
+    margin-top: 0.3mm;
+    color: #222222 !important;
+    font-size: 8.1pt;
+    line-height: 1.38;
+  }
+
+  .resume-project__stack {
+    color: #4b4b4b !important;
+    font-size: 6.8pt;
+  }
+
+  .resume-empty,
+  .resume-section--experience {
+    display: none !important;
+  }
+
+  .resume-foot {
+    margin-top: 3.2mm;
+    padding-top: 1.4mm;
+    border-top: 0.5pt solid #bdbdbd;
+    color: #555555 !important;
+    font-size: 6.6pt;
+  }
+
+  .resume-section,
+  .resume-entry,
+  .resume-project {
+    break-inside: avoid;
+  }
+}
