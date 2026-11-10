@@ -43,12 +43,13 @@
     (function () {
       document.documentElement.classList.add("js");
 
-      /* Full “name + logo” preloader only on the first entry in this tab.
-         Later page switches show the logo-only version. */
+      /* A direct open or refresh gets the full name + logo intro. The
+         one-shot flag is only written when an internal page link is clicked,
+         so internal navigation gets the logo-only version. */
       try {
-        if (!sessionStorage.getItem("aai-entered")) {
-          document.documentElement.classList.add("is-first-visit");
-          sessionStorage.setItem("aai-entered", "1");
+        if (sessionStorage.getItem("aai-internal-nav") === "1") {
+          document.documentElement.classList.add("is-internal-nav");
+          sessionStorage.removeItem("aai-internal-nav");
         }
       } catch (error) { /* file:// or private mode */ }
 

@@ -258,8 +258,8 @@
 
   function hidePreloader() {
     if (!preloader) return;
-    var firstVisit = root.classList.contains("is-first-visit");
-    var minimum = firstVisit ? 360 : 180;
+    var internalNav = root.classList.contains("is-internal-nav");
+    var minimum = internalNav ? 180 : 650;
     var wait = Math.max(0, minimum - (performance.now() - preloaderStart));
     window.setTimeout(function () {
       preloader.classList.add("is-loaded");
@@ -278,7 +278,42 @@
 
   /* ---------------------------------------------------------------------
      6. Page transition — a short curtain on internal navigation.
+     A one-shot session flag tells the next page to use the logo-only
+     preloader. This listener runs even with reduced motion, where the
+     visual curtain itself is disabled.
      --------------------------------------------------------------------- */
+  document.addEventListener(
+    "click",
+    function (event) {
+      if (event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      var link = event.target.closest("a");
+      if (!link) return;
+      if (link.target === "_blank" || link.hasAttribute("download")) return;
+      var href = link.getAttribute("href");
+      if (!href || href.charAt(0) === "#" || /^(mailto:|tel:|javascript:)/i.test(href)) return;
+
+      var target;
+      try {
+        target = new URL(href, window.location.href);
+      } catch (error) {
+        return;
+      }
+      if (target.origin !== window.location.origin) return;
+      if (target.pathname === window.location.pathname) return;
+      if (!/\.html?$/.test(target.pathname) && target.pathname.charAt(target.pathname.length - 1) !== "/") {
+        return;
+      }
+
+      try {
+        sessionStorage.setItem("aai-internal-nav", "1");
+      } catch (error) {
+        /* Private mode: fall back to the full intro. */
+      }
+    },
+    true
+  );
+
   var transition = document.querySelector(".page-transition");
   if (!reduceMotion && transition) {
     document.addEventListener("click", function (event) {

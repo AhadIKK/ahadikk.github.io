@@ -35,7 +35,7 @@ The site is **plain HTML5, CSS3, JavaScript and jQuery** — no React, no build 
 
 - **Multi-page sharing model** — fixed glass navigation, active-page state, footer navigation, relative paths for GitHub Pages project sites.
 - **Hover-latching nav pill** — the highlight slides to whichever header label is hovered or focused, then returns to the actual active page.
-- **First-entry-only intro** — the full AA mark + name preloader plays when the site is first opened in a tab; later page switches show the AA mark only.
+- **Smart preloader** — a direct open or refresh gets the full AA mark + name intro; internal page switches show the AA mark only.
 - **Resume that prints** — real text (no image), standard headings, one-page A4 `@media print` output. Download button uses `assets/resume/Abdul-Ahad-Ikkeri-Resume.pdf`.
 - **Bio-data done properly** — `<table>`, `<dl>`, `<fieldset>`, `<address>`, `<time>`, a vertical education timeline and a declaration.
 - **jQuery project filter** — All / Web / AI / Hardware / Tools, live counts and an `aria-live` result.

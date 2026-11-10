@@ -1926,10 +1926,10 @@ body.has-cursor select {
   animation: loader-bar 0.9s var(--ease-out) 0.1s forwards;
 }
 
-/* Internal page changes show only the monogram; the full wordmark is reserved
-   for the initial entry into the site in this tab. */
-html:not(.is-first-visit) .preloader__word,
-html:not(.is-first-visit) .preloader__bar {
+/* Internal page changes show only the monogram; every direct open or refresh
+   gets the full wordmark. */
+html.is-internal-nav .preloader__word,
+html.is-internal-nav .preloader__bar {
   display: none;
 }
 
