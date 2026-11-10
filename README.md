@@ -454,6 +454,6 @@ On the first visit the site follows the operating system’s `prefers-color-sche
 - The contact form uses the mailto fallback until you add a Formspree endpoint; validation works out of the box.
 - Numeric skill percentages were deliberately not invented; the page explains its evidence labels instead. Those labels describe evidence, not certified proficiency.
 - The live URL in the meta tags is the suggested GitHub Pages URL until you deploy.
-- The AA monogram is a custom geometric mark: two interlocking A forms with the CommitIt ember notification dot.
+- The AA monogram is a custom geometric mark: two interlocking A forms on a muted forest tile.
 
 > **Built from scratch for the “Resume and Bio-data website” assignment — and for the internship search after it.**
