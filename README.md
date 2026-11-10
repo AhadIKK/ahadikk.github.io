@@ -5,7 +5,7 @@
 Third-year B.E. Computer Science Engineering student at PA College of Engineering.
 A multi-page portfolio with a real bio-data record, an ATS-friendly resume, project case studies, and the events behind the work.
 
-> **Live URL (after deployment):** `https://ahadikk.github.io/`
+> **Live:** **https://ahadikk.github.io/** — deployed from this repository via GitHub Pages.
 > **Backup:** deploy the same folder to Netlify (instructions below).
 
 ![Portfolio home — dark theme](assets/img/screenshots/home-desktop.webp)

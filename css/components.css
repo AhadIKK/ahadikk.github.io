@@ -1826,7 +1826,7 @@
   pointer-events: none;
   opacity: 0;
   /* Centering is done in JS together with the pointer transform.
-     Adding `translate: -50% -50%` here as well double-shifts the ring. */
+     Adding the CSS translate shorthand here as well double-shifts the ring. */
 }
 
 .cursor-dot {
