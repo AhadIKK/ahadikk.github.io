@@ -88,6 +88,33 @@
   }
 }
 
+@keyframes ambient-breathe-a {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 1.16;
+  }
+}
+
+@keyframes ambient-breathe-b {
+  from {
+    scale: 1.04;
+  }
+  to {
+    scale: 0.93;
+  }
+}
+
+@keyframes ambient-breathe-c {
+  from {
+    scale: 0.94;
+  }
+  to {
+    scale: 1.13;
+  }
+}
+
 @keyframes dialog-in {
   from {
     opacity: 0;
@@ -198,7 +225,6 @@ button {
   .preloader,
   .page-transition,
   .cursor,
-  .cursor-pill,
   .scroll-progress,
   .to-top {
     display: none !important;
@@ -206,6 +232,10 @@ button {
 
   .ambient__spot {
     display: none !important;
+  }
+
+  .ambient__orb {
+    animation: none !important;
   }
 
   .hero__aurora::before,

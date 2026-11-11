@@ -354,7 +354,8 @@
 }
 
 .ambient__orb {
-  opacity: 0.58;
+  opacity: 0.7;
+  transform-origin: center;
 }
 
 .ambient__orb--teal {
@@ -362,7 +363,8 @@
   left: -16vw;
   width: min(70vw, 920px);
   aspect-ratio: 1;
-  background: radial-gradient(circle, var(--accent-soft), transparent 65%);
+  background: radial-gradient(circle, var(--ambient-teal), transparent 65%);
+  animation: ambient-breathe-a 20s ease-in-out infinite alternate;
 }
 
 .ambient__orb--ember {
@@ -370,8 +372,19 @@
   bottom: -28vh;
   width: min(52vw, 720px);
   aspect-ratio: 1;
-  background: radial-gradient(circle, var(--ember-soft), transparent 66%);
-  opacity: 0.46;
+  background: radial-gradient(circle, var(--ambient-ember), transparent 66%);
+  opacity: 0.6;
+  animation: ambient-breathe-b 25s ease-in-out infinite alternate;
+}
+
+.ambient__orb--mint {
+  top: 34vh;
+  right: 12vw;
+  width: min(40vw, 560px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, var(--ambient-mint), transparent 66%);
+  opacity: 0.52;
+  animation: ambient-breathe-c 30s ease-in-out infinite alternate;
 }
 
 .ambient__spot {
@@ -379,13 +392,13 @@
   left: 0;
   width: min(46vw, 620px);
   aspect-ratio: 1;
-  background: radial-gradient(circle, var(--accent-soft), transparent 63%);
+  background: radial-gradient(circle, var(--ambient-teal), transparent 63%);
   opacity: 0;
   transition: opacity 0.8s ease;
 }
 
 .ambient.is-live .ambient__spot {
-  opacity: 0.68;
+  opacity: 0.62;
 }
 
 main {

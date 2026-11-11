@@ -83,6 +83,9 @@
   --ember: #ff8c61;
   --ember-soft: rgba(255, 140, 97, 0.13);
   --ember-line: rgba(255, 140, 97, 0.32);
+  --ambient-teal: rgba(48, 227, 180, 0.17);
+  --ambient-ember: rgba(255, 140, 97, 0.11);
+  --ambient-mint: rgba(124, 247, 212, 0.1);
   --glass: rgba(11, 14, 16, 0.68);
   --glass-strong: rgba(11, 14, 16, 0.88);
   --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.34);
@@ -119,6 +122,9 @@
   --ember: #b94a24;
   --ember-soft: rgba(185, 74, 36, 0.09);
   --ember-line: rgba(185, 74, 36, 0.28);
+  --ambient-teal: rgba(7, 112, 95, 0.11);
+  --ambient-ember: rgba(185, 74, 36, 0.08);
+  --ambient-mint: rgba(10, 146, 121, 0.08);
   --glass: rgba(244, 241, 232, 0.78);
   --glass-strong: rgba(244, 241, 232, 0.94);
   --shadow-card: 0 20px 55px rgba(53, 56, 47, 0.12);

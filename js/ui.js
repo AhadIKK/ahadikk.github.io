@@ -420,56 +420,19 @@
 
       window.requestAnimationFrame(cursorFrame);
 
-      /* Nav pill cursor: while the pointer is over a primary nav label, hide
-         the dot/ring and show one magnetic pill outline around that label.
-         The filled nav glider stays behind it, so the label remains readable. */
-      var cursorPill = document.querySelector(".cursor-pill");
-      var pillNav = document.getElementById("primary-nav-list");
-      if (cursorPill && pillNav) {
-        var pillActive = pillNav.querySelector('a[aria-current="page"]') || pillNav.querySelector("a");
-        var pillHeight = 38;
-
-        function placeNavPill(link) {
-          if (!cursorPill || !link) return;
-          var rect = link.getBoundingClientRect();
-          cursorPill.style.left = rect.left + "px";
-          cursorPill.style.top = rect.top + rect.height / 2 - pillHeight / 2 + "px";
-          cursorPill.style.width = rect.width + "px";
-          cursorPill.style.height = pillHeight + "px";
-        }
-
-        function showNavPill(link) {
-          placeNavPill(link);
-          cursorPill.classList.add("is-visible");
-          dot.style.opacity = "0";
-          ring.style.opacity = "0";
-        }
-
-        function hideNavPill() {
-          cursorPill.classList.remove("is-visible");
-          placeNavPill(pillActive);
-          if (cursorVisible) {
-            dot.style.opacity = "1";
-            ring.style.opacity = "1";
-          }
-        }
-
-        placeNavPill(pillActive);
-        pillNav.querySelectorAll("a").forEach(function (link) {
-          link.addEventListener("mouseenter", function () {
-            showNavPill(link);
-          });
+      /* The cursor itself morphs into a compact pill over the primary nav.
+         The dot stays visible inside it, so the cursor never disappears. */
+      var morphNav = document.getElementById("primary-nav-list");
+      if (morphNav) {
+        morphNav.addEventListener("mouseenter", function () {
+          ring.classList.add("is-nav-pill");
         });
-        pillNav.addEventListener("mouseleave", hideNavPill);
-        document.addEventListener("mouseleave", hideNavPill);
-        window.addEventListener("blur", hideNavPill);
-        window.addEventListener("scroll", hideNavPill, { passive: true });
-        window.addEventListener("resize", hideNavPill);
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(function () {
-            placeNavPill(pillActive);
-          });
-        }
+        morphNav.addEventListener("mouseleave", function () {
+          ring.classList.remove("is-nav-pill");
+        });
+        window.addEventListener("blur", function () {
+          ring.classList.remove("is-nav-pill");
+        });
       }
     }
 
@@ -493,6 +456,7 @@
   if (ambient && finePointer && !reduceMotion) {
     var ambientTeal = ambient.querySelector(".ambient__orb--teal");
     var ambientEmber = ambient.querySelector(".ambient__orb--ember");
+    var ambientMint = ambient.querySelector(".ambient__orb--mint");
     var ambientSpot = ambient.querySelector(".ambient__spot");
     var ambientTargetX = 0;
     var ambientTargetY = 0;
@@ -516,16 +480,20 @@
       spotX += (spotTargetX - spotX) * 0.12;
       spotY += (spotTargetY - spotY) * 0.12;
 
-      var driftX = Math.sin(time * 0.00022) * 11;
-      var driftY = Math.cos(time * 0.00018) * 8;
+      var driftX = Math.sin(time * 0.00022) * 18;
+      var driftY = Math.cos(time * 0.00018) * 13;
 
       if (ambientTeal) {
         ambientTeal.style.transform =
-          "translate3d(" + (ambientX * 42 + driftX) + "px," + (ambientY * 30 + driftY) + "px,0)";
+          "translate3d(" + (ambientX * 48 + driftX) + "px," + (ambientY * 34 + driftY) + "px,0)";
       }
       if (ambientEmber) {
         ambientEmber.style.transform =
-          "translate3d(" + (-ambientX * 30 - driftX * 0.7) + "px," + (-ambientY * 24 - driftY * 0.7) + "px,0)";
+          "translate3d(" + (-ambientX * 34 - driftX * 0.7) + "px," + (-ambientY * 26 - driftY * 0.7) + "px,0)";
+      }
+      if (ambientMint) {
+        ambientMint.style.transform =
+          "translate3d(" + (-ambientX * 20 + driftX * 0.5) + "px," + (ambientY * 22 + driftY * 0.5) + "px,0)";
       }
       if (ambientSpot) {
         ambientSpot.style.transform =
