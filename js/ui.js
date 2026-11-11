@@ -571,7 +571,7 @@
   window.AAI.toast = showToast;
   window.AAI.reducedMotion = reduceMotion;
 
-  $(document).on("click", "[data-copy-email]", function () {
+  function copyProfileEmail() {
     var email = profile.email;
     if (!email || isPlaceholder(email)) {
       showToast("Add your email in data/profile.js first.", "error");
@@ -579,7 +579,7 @@
     }
 
     function copied() {
-      showToast("Email copied — " + email);
+      showToast("Email copied - " + email);
     }
 
     if (navigator.clipboard && window.isSecureContext) {
@@ -600,11 +600,145 @@
         document.execCommand("copy");
         copied();
       } catch (error) {
-        showToast("Could not copy — please select the email manually.", "error");
+        showToast("Could not copy - please select the email manually.", "error");
       }
       document.body.removeChild(input);
     }
-  });
+  }
+
+  $(document).on("click", "[data-copy-email]", copyProfileEmail);
+
+  /* ---------------------------------------------------------------------
+     10b. Quick-jump command palette (Ctrl/Cmd + K)
+     --------------------------------------------------------------------- */
+  var commandDialog = document.getElementById("command-palette");
+  if (commandDialog) {
+    var commandInput = document.getElementById("command-input");
+    var commandList = document.getElementById("command-list");
+    var commandEmpty = document.getElementById("command-empty");
+    var commandItems = Array.prototype.slice.call(commandDialog.querySelectorAll("[data-command]"));
+
+    commandItems.forEach(function (item) {
+      if (item.tagName === "A" && item.href) {
+        try {
+          var target = new URL(item.href, window.location.href);
+          if (target.origin === window.location.origin && target.pathname === window.location.pathname) {
+            item.setAttribute("aria-current", "page");
+          }
+        } catch (error) {
+          /* Ignore malformed URLs. */
+        }
+      }
+    });
+
+    function filterCommands() {
+      var query = String(commandInput.value || "").trim().toLowerCase();
+      var visible = 0;
+      commandItems.forEach(function (item) {
+        var haystack = (item.textContent + " " + (item.getAttribute("data-keywords") || "")).toLowerCase();
+        var show = !query || haystack.indexOf(query) !== -1;
+        item.hidden = !show;
+        if (show) visible++;
+      });
+      commandEmpty.hidden = visible > 0;
+      commandList.scrollTop = 0;
+    }
+
+    function visibleCommands() {
+      return commandItems.filter(function (item) {
+        return !item.hidden;
+      });
+    }
+
+    function openCommand() {
+      if (commandDialog.open) return;
+      commandInput.value = "";
+      filterCommands();
+      commandDialog.showModal();
+      document.body.classList.add("modal-open");
+      commandInput.focus();
+    }
+
+    function closeCommand() {
+      if (commandDialog.open) commandDialog.close();
+    }
+
+    document.querySelectorAll("[data-command-open]").forEach(function (button) {
+      button.addEventListener("click", openCommand);
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if ((event.ctrlKey || event.metaKey) && String(event.key).toLowerCase() === "k") {
+        event.preventDefault();
+        if (commandDialog.open) closeCommand();
+        else openCommand();
+      }
+    });
+
+    commandDialog.addEventListener("close", function () {
+      document.body.classList.remove("modal-open");
+    });
+
+    commandDialog.addEventListener("click", function (event) {
+      if (event.target === commandDialog) closeCommand();
+    });
+
+    commandDialog.querySelectorAll("[data-command-close]").forEach(function (button) {
+      button.addEventListener("click", closeCommand);
+    });
+
+    commandInput.addEventListener("input", filterCommands);
+    commandInput.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        var items = visibleCommands();
+        if (!items.length) return;
+        (event.key === "ArrowDown" ? items[0] : items[items.length - 1]).focus();
+      } else if (event.key === "Enter") {
+        event.preventDefault();
+        var first = visibleCommands()[0];
+        if (first) first.click();
+      }
+    });
+
+    commandList.addEventListener("keydown", function (event) {
+      if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+      event.preventDefault();
+      var items = visibleCommands();
+      var current = items.indexOf(document.activeElement);
+      if (current === -1) return;
+      var next = (current + (event.key === "ArrowDown" ? 1 : -1) + items.length) % items.length;
+      items[next].focus();
+    });
+
+    commandList.addEventListener("click", function (event) {
+      var item = event.target.closest("[data-command]");
+      if (!item) return;
+      var action = item.getAttribute("data-action");
+      if (!action) {
+        closeCommand();
+        return;
+      }
+
+      event.preventDefault();
+      closeCommand();
+      window.setTimeout(function () {
+        if (action === "resume") {
+          var link = document.createElement("a");
+          link.href = profile.resumePdf || "assets/resume/Abdul-Ahad-Ikkeri-Resume.pdf";
+          link.setAttribute("download", "");
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        } else if (action === "theme") {
+          var themeButton = document.querySelector("[data-theme-toggle]");
+          if (themeButton) themeButton.click();
+        } else if (action === "copy") {
+          copyProfileEmail();
+        }
+      }, 0);
+    });
+  }
 
   /* ---------------------------------------------------------------------
      11. Print button + footer year

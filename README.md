@@ -38,6 +38,7 @@ The site is **plain HTML5, CSS3, JavaScript and jQuery** — no React, no build 
 - **Morphing cursor** — over the header nav, the cursor ring transforms into a compact pill while the dot stays visible; it never disappears.
 - **Interactive ambient background** — animated teal/ember/mint gradient orbs in both themes, plus pointer-reactive light and a slow autonomous drift; static under reduced-motion.
 - **Smart preloader** — a direct open or refresh gets the full AA mark + name intro; internal page switches show the AA mark only.
+- **Ctrl/Cmd + K quick jump** — a command palette for every page, resume download, theme toggle, copy-email and social links.
 - **Resume that prints** — real text (no image), standard headings, one-page A4 `@media print` output. Download button uses `assets/resume/Abdul-Ahad-Ikkeri-Resume.pdf`.
 - **Bio-data done properly** — `<table>`, `<dl>`, `<fieldset>`, `<address>`, `<time>`, a vertical education timeline and a declaration.
 - **jQuery project filter** — All / Web / AI / Hardware / Tools, live counts and an `aria-live` result.
