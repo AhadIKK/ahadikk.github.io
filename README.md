@@ -362,16 +362,16 @@ If Netlify is your primary URL, update all canonical/OG/sitemap URLs from `ahadi
 
 ### Performance
 
-Local Lighthouse audit on 10 Nov 2026 (mobile, simulated throttling):
+Local Lighthouse audit on 11 Nov 2026 (mobile, simulated throttling):
 
 | Category | Score |
 | --- | --- |
-| Performance | **98** |
+| Performance | **97** |
 | Accessibility | **100** |
 | Best Practices | **100** |
 | SEO | **100** |
 
-Key choices: local fonts and libraries, no framework, no image-heavy hero, custom SVG art, deferred JS, CSS transforms/opacity for motion, and one small noise texture. LCP 1.8s, CLS 0.02, TBT 0ms on the test run. Scores vary by machine/network; run **Chrome DevTools → Lighthouse → Mobile** after deploying.
+Key choices: local fonts and libraries, no framework, no image-heavy hero, custom SVG art, deferred JS, CSS transforms/opacity for motion, and one small noise texture. LCP 2.0s, CLS 0.02, TBT 0ms on the test run. Scores vary by machine/network; run **Chrome DevTools → Lighthouse → Mobile** after deploying.
 
 ### Theme
 
