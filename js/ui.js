@@ -419,6 +419,58 @@
       });
 
       window.requestAnimationFrame(cursorFrame);
+
+      /* Nav pill cursor: while the pointer is over a primary nav label, hide
+         the dot/ring and show one magnetic pill outline around that label.
+         The filled nav glider stays behind it, so the label remains readable. */
+      var cursorPill = document.querySelector(".cursor-pill");
+      var pillNav = document.getElementById("primary-nav-list");
+      if (cursorPill && pillNav) {
+        var pillActive = pillNav.querySelector('a[aria-current="page"]') || pillNav.querySelector("a");
+        var pillHeight = 38;
+
+        function placeNavPill(link) {
+          if (!cursorPill || !link) return;
+          var rect = link.getBoundingClientRect();
+          cursorPill.style.left = rect.left + "px";
+          cursorPill.style.top = rect.top + rect.height / 2 - pillHeight / 2 + "px";
+          cursorPill.style.width = rect.width + "px";
+          cursorPill.style.height = pillHeight + "px";
+        }
+
+        function showNavPill(link) {
+          placeNavPill(link);
+          cursorPill.classList.add("is-visible");
+          dot.style.opacity = "0";
+          ring.style.opacity = "0";
+        }
+
+        function hideNavPill() {
+          cursorPill.classList.remove("is-visible");
+          placeNavPill(pillActive);
+          if (cursorVisible) {
+            dot.style.opacity = "1";
+            ring.style.opacity = "1";
+          }
+        }
+
+        placeNavPill(pillActive);
+        pillNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("mouseenter", function () {
+            showNavPill(link);
+          });
+        });
+        pillNav.addEventListener("mouseleave", hideNavPill);
+        document.addEventListener("mouseleave", hideNavPill);
+        window.addEventListener("blur", hideNavPill);
+        window.addEventListener("scroll", hideNavPill, { passive: true });
+        window.addEventListener("resize", hideNavPill);
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(function () {
+            placeNavPill(pillActive);
+          });
+        }
+      }
     }
 
     document.querySelectorAll("[data-magnetic]").forEach(function (element) {
@@ -432,6 +484,59 @@
         element.style.translate = "";
       });
     });
+  }
+
+  /* ---------------------------------------------------------------------
+     7b. Ambient background — pointer-reactive light + slow autonomous drift
+     --------------------------------------------------------------------- */
+  var ambient = document.querySelector(".ambient");
+  if (ambient && finePointer && !reduceMotion) {
+    var ambientTeal = ambient.querySelector(".ambient__orb--teal");
+    var ambientEmber = ambient.querySelector(".ambient__orb--ember");
+    var ambientSpot = ambient.querySelector(".ambient__spot");
+    var ambientTargetX = 0;
+    var ambientTargetY = 0;
+    var ambientX = 0;
+    var ambientY = 0;
+    var spotX = window.innerWidth * 0.65;
+    var spotY = window.innerHeight * 0.32;
+    var spotTargetX = spotX;
+    var spotTargetY = spotY;
+
+    document.addEventListener("mousemove", function (event) {
+      ambientTargetX = event.clientX / window.innerWidth - 0.5;
+      ambientTargetY = event.clientY / window.innerHeight - 0.5;
+      spotTargetX = event.clientX;
+      spotTargetY = event.clientY;
+    });
+
+    function ambientFrame(time) {
+      ambientX += (ambientTargetX - ambientX) * 0.045;
+      ambientY += (ambientTargetY - ambientY) * 0.045;
+      spotX += (spotTargetX - spotX) * 0.12;
+      spotY += (spotTargetY - spotY) * 0.12;
+
+      var driftX = Math.sin(time * 0.00022) * 11;
+      var driftY = Math.cos(time * 0.00018) * 8;
+
+      if (ambientTeal) {
+        ambientTeal.style.transform =
+          "translate3d(" + (ambientX * 42 + driftX) + "px," + (ambientY * 30 + driftY) + "px,0)";
+      }
+      if (ambientEmber) {
+        ambientEmber.style.transform =
+          "translate3d(" + (-ambientX * 30 - driftX * 0.7) + "px," + (-ambientY * 24 - driftY * 0.7) + "px,0)";
+      }
+      if (ambientSpot) {
+        ambientSpot.style.transform =
+          "translate3d(" + spotX + "px," + spotY + "px,0) translate(-50%,-50%)";
+      }
+
+      window.requestAnimationFrame(ambientFrame);
+    }
+
+    ambient.classList.add("is-live");
+    window.requestAnimationFrame(ambientFrame);
   }
 
   /* ---------------------------------------------------------------------

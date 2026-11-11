@@ -1863,6 +1863,27 @@ body.has-cursor select {
   background: var(--accent-soft);
 }
 
+/* On the primary nav the cursor itself becomes a pill outline that matches
+   the hovered label. It is layered over the nav glider, so the text stays
+   fully readable and the shape change feels magnetic. */
+.cursor-pill {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9995;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-pill);
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 0 20px var(--accent-soft);
+  transition: opacity 0.16s ease, left 0.32s var(--ease-out), top 0.32s var(--ease-out),
+    width 0.28s var(--ease-out), height 0.28s var(--ease-out);
+}
+
+.cursor-pill.is-visible {
+  opacity: 1;
+}
+
 /* ---- Preloader & page transition ---------------------------------------- */
 .preloader {
   position: fixed;

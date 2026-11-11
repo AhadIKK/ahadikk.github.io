@@ -35,6 +35,8 @@ The site is **plain HTML5, CSS3, JavaScript and jQuery** — no React, no build 
 
 - **Multi-page sharing model** — fixed glass navigation, active-page state, footer navigation, relative paths for GitHub Pages project sites.
 - **Hover-latching nav pill** — the highlight slides to whichever header label is hovered or focused, then returns to the actual active page.
+- **Magnetic pill cursor** — over the header nav, the custom cursor becomes an accent pill outline that matches and latches to the hovered label.
+- **Interactive ambient background** — pointer-reactive teal/ember light plus a slow autonomous drift; static and low-motion under reduced-motion.
 - **Smart preloader** — a direct open or refresh gets the full AA mark + name intro; internal page switches show the AA mark only.
 - **Resume that prints** — real text (no image), standard headings, one-page A4 `@media print` output. Download button uses `assets/resume/Abdul-Ahad-Ikkeri-Resume.pdf`.
 - **Bio-data done properly** — `<table>`, `<dl>`, `<fieldset>`, `<address>`, `<time>`, a vertical education timeline and a declaration.

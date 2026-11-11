@@ -336,6 +336,67 @@
   gap: 8px;
 }
 
+/* ---- Ambient background -------------------------------------------------- */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient__orb,
+.ambient__spot {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.ambient__orb {
+  opacity: 0.58;
+}
+
+.ambient__orb--teal {
+  top: -24vh;
+  left: -16vw;
+  width: min(70vw, 920px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, var(--accent-soft), transparent 65%);
+}
+
+.ambient__orb--ember {
+  right: -18vw;
+  bottom: -28vh;
+  width: min(52vw, 720px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, var(--ember-soft), transparent 66%);
+  opacity: 0.46;
+}
+
+.ambient__spot {
+  top: 0;
+  left: 0;
+  width: min(46vw, 620px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, var(--accent-soft), transparent 63%);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.ambient.is-live .ambient__spot {
+  opacity: 0.68;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.site-footer {
+  z-index: 1;
+}
+
 /* ---- Page hero ----------------------------------------------------------- */
 .page-hero {
   position: relative;
@@ -1059,6 +1120,14 @@
   :root {
     --header-h: 68px;
     --gutter: clamp(18px, 5vw, 30px);
+  }
+
+  .ambient__orb {
+    opacity: 0.38;
+  }
+
+  .ambient__spot {
+    display: none;
   }
 
   .brand-mark {

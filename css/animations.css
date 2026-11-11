@@ -198,8 +198,13 @@ button {
   .preloader,
   .page-transition,
   .cursor,
+  .cursor-pill,
   .scroll-progress,
   .to-top {
+    display: none !important;
+  }
+
+  .ambient__spot {
     display: none !important;
   }
 
